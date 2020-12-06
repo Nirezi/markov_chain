@@ -15,7 +15,7 @@ class Bot(commands.Bot):
     def __init__(self, prefix):
         intents = discord.Intents.all()
         allowed_mentions = discord.AllowedMentions(everyone=False, roles=False, users=True)
-        super().__init__(command_prefix=prefix, allowed_mentions=allowed_mentions, intents=intents)
+        super().__init__(command_prefix=prefix, allowed_mentions=allowed_mentions, intents=intents, help_command=None)
 
         self.load_extension('jishaku')
         path = "./cogs" if os.name == "nt" else "~/markov_chain/cogs"  # 実行環境によってpathを変える
