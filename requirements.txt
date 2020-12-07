@@ -1,7 +1,5 @@
-discord.py>=1.5.1
-MeCab
-markovify
-pickle
 asyncio
-discord
+discord.py>=1.5.1
+markovify
+MeCab
 python-dotenv
