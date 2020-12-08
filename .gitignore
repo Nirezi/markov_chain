@@ -130,5 +130,6 @@ dmypy.json
 
 # marukov cham model file
 *.pickle
+*.json
 
 .idea/
