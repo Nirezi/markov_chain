@@ -23,8 +23,8 @@ class Markov(commands.Cog):
         """
         model2 = markovify.Text(text, state_size=2, retain_original=False, well_formed=False)
         # well_formedをFalseにして"()"などが含まれていてもエラーがでないように
-        model = markovify.combine([model, model2])
-        return model
+        merged_model = markovify.combine([model, new_model])
+        return merged_model
 
     async def write_model(self, file_name: str, model: markovify.Text) -> None:
         """
@@ -50,12 +50,13 @@ class Markov(commands.Cog):
             model = markovify.Text.from_json(file)  # モデルファイルを読み込む
 
         text = self.tagger.parse(message.clean_content)
-        new_model = await self.make_model(model, text)
-        await self.write_model(file_name, new_model)
+        merged_model = await self.make_model(model, text)
+        await self.write_model(file_name, merged_model)
 
-        sentence = new_model.make_sentence().replace(" ", "")
-        if not sentence:
-            sentence = new_model.make_sentence(test_output=False).replace(" ", "")
+        sentence = merged_model.make_sentence().replace(" ", "")
+        if not sentence:  # 学習量が足りず、文章が生成できなかった場合
+            sentence = merged_model.make_sentence(test_output=False).replace(" ", "")
+            # test_outputをFalseにして文章をチェックを無効化する
             sentence += "\n※学習量が不足しているため、元の文章と似通った文章になっています。"
 
         await message.channel.send(sentence)
