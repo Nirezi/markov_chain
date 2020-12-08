@@ -21,7 +21,8 @@ class Markov(commands.Cog):
         :param text: 学習させたい文章 ※要分かち書き
         :return: 学習後のモデル
         """
-        model2 = markovify.Text(text, state_size=2, retain_original=False, well_formed=False)
+
+        new_model = markovify.Text(text, state_size=2, retain_original=False, well_formed=False)
         # well_formedをFalseにして"()"などが含まれていてもエラーがでないように
         merged_model = markovify.combine([model, new_model])
         return merged_model
