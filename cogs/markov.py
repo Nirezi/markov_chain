@@ -2,6 +2,7 @@ import asyncio
 import json
 
 import MeCab
+import discord
 import markovify
 from discord.ext import commands
 
@@ -38,7 +39,7 @@ class Markov(commands.Cog):
                 json.dump(model, f)
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message) -> None:
         if any((message.author.bot, not message.guild, not message.content)):
             return
 
