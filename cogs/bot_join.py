@@ -18,7 +18,7 @@ class BotJoin(commands.Cog):
         model = markovify.Text(text, state_size=2)
 
         async with self.lock:  # 同時アクセスを防ぐ
-            with open(f"model{guild.id}.json", "w") as f:
+            with open(f"models/{guild.id}.json", "w") as f:
                 model = model.to_json()
                 json.dump(model, f)
 

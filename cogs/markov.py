@@ -33,7 +33,7 @@ class Markov(commands.Cog):
         :return: None
         """
         async with self.lock:  # 同時アクセスを防ぐ
-            with open(file_name, "w") as f:
+            with open(f"models/{file_name}", "w") as f:
                 model = model.to_json()
                 json.dump(model, f)
 
@@ -44,7 +44,7 @@ class Markov(commands.Cog):
 
         file_name = f"model{message.guild.id}.json"
 
-        with open(file_name, "r") as f:
+        with open(f"models/{file_name}", "r") as f:
             file = json.load(f)
             model = markovify.Text.from_json(file)  # モデルファイルを読み込む
 
