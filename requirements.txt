@@ -3,3 +3,5 @@ discord.py>=1.5.1
 markovify
 MeCab
 python-dotenv
+mecab-python3
+unidic-lite
