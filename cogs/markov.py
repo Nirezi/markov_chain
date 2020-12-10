@@ -43,6 +43,9 @@ class Markov(commands.Cog):
         if any((message.author.bot, not message.guild, not message.content)):
             return
 
+        if "markov" not in message.channel.name:
+            return
+
         file_name = f"{message.guild.id}.json"
 
         with open(f"models/{file_name}", "r") as f:
