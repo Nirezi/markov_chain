@@ -46,6 +46,9 @@ class Markov(commands.Cog):
         if "markov" not in message.channel.name:
             return
 
+        if message.content.startswith(("//", "#", "--", "!")):
+            return
+
         file_name = f"{message.guild.id}.json"
 
         with open(f"models/{file_name}", "r") as f:
