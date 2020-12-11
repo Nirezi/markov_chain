@@ -20,8 +20,7 @@ class Bot(commands.Bot):
         super().__init__(command_prefix=prefix, allowed_mentions=allowed_mentions, intents=intents, help_command=None)
 
         self.load_extension('jishaku')
-        path = "./cogs" if os.name == "nt" else "./cogs"  # 実行環境によってpathを変える
-        for file in os.listdir(path):
+        for file in os.listdir("./cogs"):
             if file.endswith(".py"):
                 try:
                     self.load_extension(f"cogs.{file[:-3]}")
