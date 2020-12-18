@@ -38,6 +38,13 @@ class Markov(commands.Cog):
                 model = model.to_json()
                 json.dump(model, f)
 
+    @classmethod
+    async def load_model(cls, guild_id: int) -> markovify.Text:
+        with open(f"models/{guild_id}.json", "r") as f:
+            file = json.load(f)
+            model = markovify.Text.from_json(file)  # モデルファイルを読み込む
+        return model
+
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
         if any((message.author.bot, not message.guild, not message.content)):
@@ -51,9 +58,7 @@ class Markov(commands.Cog):
 
         file_name = f"{message.guild.id}.json"
 
-        with open(f"models/{file_name}", "r") as f:
-            file = json.load(f)
-            model = markovify.Text.from_json(file)  # モデルファイルを読み込む
+        model = await self.load_model(message.guild.id)
 
         text = self.tagger.parse(message.clean_content)
         merged_model = await self.make_model(model, text)
