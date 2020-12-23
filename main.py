@@ -17,7 +17,8 @@ class Bot(commands.Bot):
     def __init__(self, prefix):
         intents = discord.Intents.all()
         allowed_mentions = discord.AllowedMentions(everyone=False, roles=False, users=True)
-        super().__init__(command_prefix=prefix, allowed_mentions=allowed_mentions, intents=intents, help_command=None)
+        super().__init__(command_prefix=commands.when_mentioned_or(prefix), allowed_mentions=allowed_mentions,
+                         intents=intents, help_command=None)
 
         self.load_extension('jishaku')
         for file in os.listdir("./cogs"):
