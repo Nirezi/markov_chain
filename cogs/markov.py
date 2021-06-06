@@ -64,13 +64,13 @@ class Markov(commands.Cog):
         merged_model = await self.make_model(model, text)
         await self.write_model(file_name, merged_model)
 
-        sentence = merged_model.make_sentence().replace(" ", "")
+        sentence = merged_model.make_sentence()
         if not sentence:  # 学習量が足りず、文章が生成できなかった場合
             sentence = merged_model.make_sentence(test_output=False).replace(" ", "")
             # test_outputをFalseにして文章をチェックを無効化する
             sentence += "\n※学習量が不足しているため、元の文章と似通った文章になっています。"
 
-        await message.channel.send(sentence)
+        await message.channel.send(sentence.replace(" ", ""))
 
 
 def setup(bot):
